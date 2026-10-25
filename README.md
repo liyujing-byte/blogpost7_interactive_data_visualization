@@ -1,66 +1,87 @@
-# Blog Post 7 — Interactive Data Visualization with Plotly
+# Income and Life Expectancy Across Countries
 
-**Question:** How does the relationship between GDP per capita and life expectancy vary across countries and over time?
+## Project Overview
 
-An R/RStudio project using the historical Gapminder excerpt (142 countries, 1952–2007). It includes an English article, two functional Plotly HTML figures, original input data, computed result tables, session information, and validation evidence.
+This project uses R and Plotly to explore how the relationship between GDP per capita and life expectancy varies across countries and over time. It uses the historical Gapminder excerpt: 142 countries observed every five years from 1952 to 2007.
 
-## Open and reproduce in RStudio
+The main figure includes a year slider, continent legend filters and country hover details. A supplementary dropdown figure follows five selected countries through all twelve observations. Both figures use fixed axes and a logarithmic GDP scale.
 
-1. Download or clone this repository and open `blogpost7.Rproj`.
-2. In the RStudio Console, run:
+## Repository Structure
 
-```r
-source("scripts/install_packages.R") # once; CRAN access required
-source("run.R")                     # bundled CSV; no data download required
+```text
+blogpost7_interactive_data_visualization/
+├── code/
+│   ├── run.R
+│   ├── analysis.R
+│   ├── install_packages.R
+│   ├── export_source_data.R
+│   ├── validate_outputs.R
+│   ├── write_post.R
+│   └── template.md
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── results/
+├── figures/
+│   ├── index.html
+│   ├── interactive_plot.html
+│   ├── country_trajectories.html
+│   ├── preview_2007.png
+│   ├── post/
+│   └── evidence/
+├── .gitignore
+├── README.md
+└── blogpost7_interactive_data_visualization.Rproj
 ```
 
-Or run `Rscript scripts/install_packages.R` followed by `Rscript run.R` from the repository root. R 4.5 or a compatible version is recommended; the exact R and package versions used here are recorded in `results/sessionInfo.txt` and `results/package_versions.csv`. Pandoc must be installed for self-contained HTML export; RStudio normally bundles it. If running outside RStudio, put Pandoc on PATH or configure `RSTUDIO_PANDOC`.
+- **code/**: complete analysis, installation and validation scripts, plus the editable article template.
+- **data/raw/**: original input CSV, source documentation and source package version.
+- **data/processed/**: complete analysis table with log10 GDP per capita.
+- **data/results/**: computed summaries, country cases, article claim values and R environment information.
+- **figures/**: interactive HTML outputs, static preview and a standalone article page.
+- **figures/post/**: generated English article in Markdown and Quarto formats, approximately 640 words.
+- **figures/evidence/**: six actual interaction screenshots, data checks, captured run logs, Plotly specifications, checksums and rubric evidence map.
 
-The code regenerates data checks, processed data, CSV results, a static preview, the two HTML figures, plot specifications, checksums, and article pages. Open `docs/index.html` in a browser to read the article with both figures. The figure HTML files include their JavaScript and do not require a CDN or an R session. Narrow windows allow horizontal scrolling within figures to preserve readable axes and controls.
+## Reproducibility
 
-The process log in `evidence/run.log` was captured from an actual run. Browser screenshots and the browser validation record document a separate UI validation; they are not recreated by `run.R` and must not be represented as new tests after changing the code.
+Open `blogpost7_interactive_data_visualization.Rproj` in RStudio. From the repository root, run:
 
-## Read and explore
+```r
+source("code/install_packages.R") # once; requires CRAN access
+source("code/run.R")              # uses the bundled CSV
+source("code/validate_outputs.R") # checks all slider years and country cases
+```
 
-- `post/blogpost7.md`: generated English article, approximately 640 words.
-- `post/blogpost7.qmd`: Quarto-ready article source; charts are hosted separately in `docs/`.
-- `docs/index.html`: standalone article with both interactive figures embedded.
-- `docs/interactive_plot.html`: year slider, continent legend filters, country hover details; equal-size country markers and fixed log-GDP/life-expectancy axes.
-- `docs/country_trajectories.html`: dropdown selecting China, India, Costa Rica, South Africa or United States; connected observations show the time order, and hover gives years.
-- `results/preview_2007.png`: static supplementary preview; not a replacement for the interactive HTML.
+Or run the same files with `Rscript` from the repository root. R 4.5 or a compatible version is recommended. Exact versions are recorded in `data/results/sessionInfo.txt` and `data/results/package_versions.csv`. Self-contained HTML export needs Pandoc, which RStudio normally bundles; outside RStudio, put Pandoc on PATH or configure `RSTUDIO_PANDOC`.
 
-The year slider uses `restyle` on five stable continent traces, preserving legend filters between years. This avoids the legend/animation interaction found during validation of an initial animated version. There is no Play control in the final chart.
+The analysis checks nine input conditions, generates all numerical results and figures, and inserts computed values into the article. It requires no API key or data download. To change the article, edit `code/template.md` and rerun the analysis. The optional `code/export_source_data.R` refreshes the CSV from the installed gapminder package; ordinary replication uses the committed snapshot.
 
-## Project organization
+Open [the article page](figures/index.html), [the main interactive figure](figures/interactive_plot.html), or [the country trajectories](figures/country_trajectories.html) in a browser after downloading the repository. JavaScript is included in each figure, so no CDN or running R session is required. GitHub's file preview does not execute the interactive HTML.
 
-| Folder/file | Purpose |
-|---|---|
-| `run.R` | Main entry point |
-| `scripts/analysis.R` | Data validation, summaries, figures and audit outputs |
-| `scripts/write_post.R` | Insert computed numbers into the article; create reading page |
-| `scripts/install_packages.R` | Install missing R dependencies |
-| `scripts/export_source_data.R` | Optional snapshot export from installed gapminder package |
-| `data/raw/` | Actual input CSV, package version and source documentation |
-| `data/processed/` | Complete analysis table with log10 GDP |
-| `results/` | Year summaries, country cases, article claim values, preview and R environment |
-| `post/template.md` | Editable prose template; edit this before rerunning |
-| `evidence/` | Input checks, run log, plot specs, checksums, screenshots and rubric map |
-| `docs/` | Standalone reading page and interactive HTML figures |
+## Main Findings
 
-## Findings and interpretation
+- The unweighted median country life expectancy rises from 45.1 years in 1952 to 71.9 in 2007.
+- In 2007, Costa Rica and South Africa have GDP per capita of approximately $9,645 and $9,270, but life expectancy differs by 29.4 years.
+- From 1992 to 2007, South Africa's GDP per capita rises about 28.3% while life expectancy falls about 12.5 years.
 
-The unweighted median country life expectancy rises from 45.1 years in 1952 to 71.9 in 2007. In 2007, Costa Rica and South Africa have GDP per capita of about $9,645 and $9,270, but life expectancy differs by 29.4 years. From 1992 to 2007, South Africa's GDP per capita rises about 28.3% while life expectancy falls about 12.5 years. All article values are generated from the bundled data; see `results/article_claims.csv` and `results/country_cases.csv` for full precision.
+Full-precision evidence is in `data/results/article_claims.csv`, `country_cases.csv` and `year_summary.csv`. The analysis is descriptive and does not establish causal effects. Country medians are not population-weighted global estimates; national averages conceal within-country differences.
 
-These are descriptive country comparisons, not causal effects or global population-weighted estimates. National averages hide within-country inequalities. GDP units follow the package's inflation-adjusted US-dollar description; its help page does not specify a price base. See `data/raw/SOURCES.md` for measurement and coverage details.
+![Income and life expectancy in 2007](figures/preview_2007.png)
 
-## Publishing and submission
+## Data Sources
+
+Data are from the historical `gapminder::gapminder` excerpt (source package 1.0.1), not a current global census. The package describes GDP per capita as inflation-adjusted US dollars, but its help page does not specify the price base; this project retains the published units without asserting an unsupported base year. Life expectancy is measured at birth in years.
+
+- [Gapminder R dataset documentation](https://jennybc.github.io/gapminder/reference/gapminder.html)
+- [Gapminder data](https://www.gapminder.org/data/)
+- [Full source and measurement notes](data/raw/SOURCES.md)
+
+## Validation Evidence
+
+See [the evidence map](figures/evidence/rubric_checklist.md) and [browser validation record](figures/evidence/browser_validation.md). Numerical checks cover all twelve slider years for all five continents and all five country trajectories. Screenshots document actual local browser interactions; they are supplementary to the functional HTML and are not regenerated by the analysis script.
+
+## Publication and Submission
+
+This repository contains reproducible analysis and evidence. `figures/index.html` is ready to be hosted or incorporated into the existing course blog; its two interactive figures must be embedded or linked from the published post. A GitHub repository upload does not by itself publish the blog. Submit the actual published blog URL and this repository URL.
 
 Repository: https://github.com/liyujing-byte/blogpost7_interactive_data_visualization
-
-The committed HTML files can be published with GitHub Pages using branch `main`, folder `/docs`. In GitHub, open Settings → Pages → Deploy from a branch → main → /docs → Save. After GitHub confirms deployment, the expected URL is:
-
-https://liyujing-byte.github.io/blogpost7_interactive_data_visualization/
-
-This expected address is not proof that Pages is enabled. Verify the deployment before submitting it. If using an existing course blog, publish the article there and embed or link to the hosted HTML figures. Do not use a GitHub file-preview URL as the interactive chart URL. This repository does not alter an existing blog or submit coursework.
-
-Submit the actual published blog URL and this repository URL. `evidence/rubric_checklist.md` maps files to the ten assignment criteria.

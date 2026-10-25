@@ -4,7 +4,7 @@
 - Source documentation: https://jennybc.github.io/gapminder/reference/gapminder.html
 - Package source: https://github.com/jennybc/gapminder
 - Original data provider: https://www.gapminder.org/data/
-- Snapshot exported on 2026-10-25 using `scripts/export_source_data.R`.
+- Snapshot exported on 2026-10-25 using `code/export_source_data.R`.
 - Coverage: 142 countries, 1952-2007 at five-year intervals; 1,704 rows.
 - `country`: country label; `continent`: package's five-continent grouping.
 - `year`: observation year; `pop`: population count.

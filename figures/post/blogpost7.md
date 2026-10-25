@@ -1,8 +1,4 @@
----
-title: "Does Higher Income Always Go with Longer Lives?"
-format: html
----
-
+# Does Higher Income Always Go with Longer Lives?
 
 Countries with higher GDP per capita often have longer life expectancies. But does this association describe every country, and does economic growth always coincide with improvements in longevity? An interactive view lets us investigate both the broad relationship and cases that a single snapshot can hide. I compare countries over time rather than treating national income as a complete measure of well-being.
 
@@ -34,7 +30,7 @@ The central takeaway is that GDP per capita provides useful context for health o
 
 ## Interactive figures and sources
 
-[Open the main interactive chart](../docs/interactive_plot.html) | [Open country trajectories](../docs/country_trajectories.html)
+[Open the main interactive chart](../interactive_plot.html) | [Open country trajectories](../country_trajectories.html)
 
 Data: [gapminder R package documentation](https://jennybc.github.io/gapminder/reference/gapminder.html), [Gapminder](https://www.gapminder.org/data/).
 

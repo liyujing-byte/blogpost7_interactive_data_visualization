@@ -1,8 +1,8 @@
 # Descriptive analysis: GDP per capita and life expectancy, 1952-2007.
 required <- c("plotly", "htmlwidgets", "htmltools", "jsonlite")
 missing <- required[!vapply(required, requireNamespace, logical(1), quietly = TRUE)]
-if (length(missing)) stop("Install required packages with scripts/install_packages.R")
-for (folder in c("data/processed", "results", "evidence", "docs", "post")) {
+if (length(missing)) stop("Install required packages with code/install_packages.R")
+for (folder in c("data/processed", "data/results", "figures/evidence", "figures", "figures/post")) {
   dir.create(folder, recursive = TRUE, showWarnings = FALSE)
 }
 d <- read.csv("data/raw/gapminder.csv", stringsAsFactors = FALSE)
@@ -20,7 +20,7 @@ checks <- c(
   balanced_panel = all(table(d$country) == length(years))
 )
 write.csv(data.frame(check = names(checks), passed = unname(checks)),
-          "evidence/data_checks.csv", row.names = FALSE)
+          "figures/evidence/data_checks.csv", row.names = FALSE)
 stopifnot(all(checks))
 d$log10_gdp <- log10(d$gdpPercap)
 write.csv(d, "data/processed/analysis_data.csv", row.names = FALSE)
@@ -31,11 +31,11 @@ summaries <- do.call(rbind, lapply(years, function(y) {
              median_gdp_per_capita = median(z$gdpPercap),
              correlation_log_gdp_life = cor(z$log10_gdp, z$lifeExp))
 }))
-write.csv(summaries, "results/year_summary.csv", row.names = FALSE)
+write.csv(summaries, "data/results/year_summary.csv", row.names = FALSE)
 selected <- c("China", "India", "Costa Rica", "South Africa", "United States")
 cases <- d[d$country %in% selected, ]
 cases <- cases[order(cases$country, cases$year), ]
-write.csv(cases, "results/country_cases.csv", row.names = FALSE)
+write.csv(cases, "data/results/country_cases.csv", row.names = FALSE)
 cr <- d[d$country == "Costa Rica" & d$year == 2007, ]
 sa07 <- d[d$country == "South Africa" & d$year == 2007, ]
 sa92 <- d[d$country == "South Africa" & d$year == 1992, ]
@@ -50,7 +50,7 @@ claims <- data.frame(
             100 * (sa07$gdpPercap / sa92$gdpPercap - 1),
             sa07$lifeExp - sa92$lifeExp)
 )
-write.csv(claims, "results/article_claims.csv", row.names = FALSE)
+write.csv(claims, "data/results/article_claims.csv", row.names = FALSE)
 
 continents <- c("Africa", "Americas", "Asia", "Europe", "Oceania")
 colors <- c("#B45309", "#007C91", "#9D3E84", "#3157A4", "#4D7C0F")
@@ -130,13 +130,13 @@ p <- htmlwidgets::prependContent(p, htmltools::tags$style(
   "html,body{min-width:680px} .html-widget{min-width:680px}"))
 q <- htmlwidgets::prependContent(q, htmltools::tags$style(
   "html,body{min-width:680px} .html-widget{min-width:680px}"))
-htmlwidgets::saveWidget(p, "docs/interactive_plot.html", selfcontained = TRUE)
-htmlwidgets::saveWidget(q, "docs/country_trajectories.html", selfcontained = TRUE)
+htmlwidgets::saveWidget(p, "figures/interactive_plot.html", selfcontained = TRUE)
+htmlwidgets::saveWidget(q, "figures/country_trajectories.html", selfcontained = TRUE)
 # saveWidget leaves temporary dependency folders even for self-contained files.
-unlink(c("docs/interactive_plot_files", "docs/country_trajectories_files"), recursive = TRUE)
+unlink(c("figures/interactive_plot_files", "figures/country_trajectories_files"), recursive = TRUE)
 
 # Static preview is supplementary; it does not replace the interactive figures.
-png("results/preview_2007.png", width = 1600, height = 1050, res = 150)
+png("figures/preview_2007.png", width = 1600, height = 1050, res = 150)
 par(mar = c(5.6, 5, 3.7, 1))
 z <- d[d$year == 2007, ]
 plot(z$gdpPercap, z$lifeExp, log = "x", pch = 21, bg = colors[as.integer(z$continent)],
@@ -155,16 +155,16 @@ dev.off()
 
 # Export the actual Plotly specifications for audit and structural checks.
 writeLines(as.character(plotly::plotly_json(p, jsonedit = FALSE, pretty = FALSE)),
-           "evidence/main_plot_spec.json")
+           "figures/evidence/main_plot_spec.json")
 writeLines(as.character(plotly::plotly_json(q, jsonedit = FALSE, pretty = FALSE)),
-           "evidence/trajectory_plot_spec.json")
-capture.output(sessionInfo(), file = "results/sessionInfo.txt")
+           "figures/evidence/trajectory_plot_spec.json")
+capture.output(sessionInfo(), file = "data/results/sessionInfo.txt")
 versions <- data.frame(package = required,
                        version = vapply(required, function(x) as.character(packageVersion(x)), character(1)))
-write.csv(versions, "results/package_versions.csv", row.names = FALSE)
-source("scripts/write_post.R", encoding = "UTF-8")
+write.csv(versions, "data/results/package_versions.csv", row.names = FALSE)
+source("code/write_post.R", encoding = "UTF-8")
 files <- c("data/raw/gapminder.csv", "data/processed/analysis_data.csv",
-           "results/year_summary.csv", "results/country_cases.csv", "results/article_claims.csv")
+           "data/results/year_summary.csv", "data/results/country_cases.csv", "data/results/article_claims.csv")
 write.csv(data.frame(file = files, md5 = unname(tools::md5sum(files))),
-          "evidence/data_result_checksums.csv", row.names = FALSE)
+          "figures/evidence/data_result_checksums.csv", row.names = FALSE)
 message("PASS: ", length(checks), " data checks; HTML figures, article, tables and evidence generated.")

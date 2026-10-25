@@ -1,6 +1,6 @@
 # Replace numerical placeholders with values computed by analysis.R.
 fmt <- function(x, digits = 1) formatC(x, format = "f", digits = digits, big.mark = ",")
-article <- paste(readLines("post/template.md", warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+article <- paste(readLines("code/template.md", warn = FALSE, encoding = "UTF-8"), collapse = "\n")
 replacements <- c(
   median1952 = fmt(summaries$median_life_expectancy[summaries$year == 1952]),
   median2007 = fmt(summaries$median_life_expectancy[summaries$year == 2007]),
@@ -16,13 +16,13 @@ for (key in names(replacements)) {
 }
 stopifnot(!grepl("{{", article, fixed = TRUE))
 links <- c("", "## Interactive figures and sources", "",
-  "[Open the main interactive chart](../docs/interactive_plot.html) | [Open country trajectories](../docs/country_trajectories.html)", "",
+  "[Open the main interactive chart](../interactive_plot.html) | [Open country trajectories](../country_trajectories.html)", "",
   "Data: [gapminder R package documentation](https://jennybc.github.io/gapminder/reference/gapminder.html), [Gapminder](https://www.gapminder.org/data/).", "",
   "[Code, input data and reproducibility evidence](https://github.com/liyujing-byte/blogpost7_interactive_data_visualization).")
-writeLines(c(article, links), "post/blogpost7.md", useBytes = TRUE)
+writeLines(c(article, links), "figures/post/blogpost7.md", useBytes = TRUE)
 qmd <- c("---", 'title: "Does Higher Income Always Go with Longer Lives?"',
          "format: html", "---", "", sub("^# [^\n]*\n", "", article), links)
-writeLines(qmd, "post/blogpost7.qmd", useBytes = TRUE)
+writeLines(qmd, "figures/post/blogpost7.qmd", useBytes = TRUE)
 
 # Standalone reading page. It can be served by GitHub Pages without Quarto.
 chunks <- strsplit(article, "\n\n", fixed = TRUE)[[1]]
@@ -63,7 +63,7 @@ page <- htmltools::tags$html(lang = "en",
     )
   )))
 writeLines(as.character(htmltools::tagList(htmltools::HTML("<!doctype html>"), page)),
-           "docs/index.html", useBytes = TRUE)
+           "figures/index.html", useBytes = TRUE)
 words <- length(strsplit(gsub("[#\n]", " ", article), "[[:space:]]+")[[1]])
 writeLines(paste("Approximate article word count (including headings):", words),
-           "evidence/article_word_count.txt")
+           "figures/evidence/article_word_count.txt")

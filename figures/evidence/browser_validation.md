@@ -1,6 +1,6 @@
 # Final HTML browser validation — 2026-10-25
 
-Method: locally serve `docs/` and operate the actual rendered HTML in the Codex in-app browser. Desktop viewport: 1280 × 900. Screenshots are original browser captures, not recreated illustrations.
+Method: locally serve `figures/` and operate the actual rendered HTML in the Codex in-app browser. Desktop viewport: 1280 × 900. Screenshots are original browser captures, not recreated illustrations.
 
 | Action | Observed result | Screenshot |
 |---|---|---|
@@ -13,4 +13,6 @@ Method: locally serve `docs/` and operate the actual rendered HTML in the Codex 
 
 The final main figure uses a year slider, without animation or Play. An initial animated prototype showed inconsistent legend behavior during testing and was replaced before these final captures. The final slider's five stable traces preserve visibility between year updates. Dropdown case selection and the article's two embedded figures were also opened and inspected. No warning/error entries were returned by the browser log query on the trajectory page.
 
-Limitations: this is local browser validation, not evidence of a GitHub Pages deployment. Screenshot checks do not establish cross-browser compatibility. Use `scripts/validate_outputs.R` for numerical correspondence of every year/continent and each country trajectory; visual screenshots alone cannot establish that correspondence.
+Limitations: this is local browser validation, not evidence of a GitHub Pages deployment. Screenshot checks do not establish cross-browser compatibility. Use `code/validate_outputs.R` for numerical correspondence of every year/continent and each country trajectory; visual screenshots alone cannot establish that correspondence.
+
+Repository organization update: the validated HTML files and screenshots were moved into `figures/` and `figures/evidence/`. These screenshots document the earlier interaction checks; numerical validation was rerun after the path update.

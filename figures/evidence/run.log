@@ -1,7 +1,6 @@
 During startup - Warning message:
 Setting LC_CTYPE failed, using "C" 
 PASS: 9 data checks; HTML figures, article, tables and evidence generated.
-PASS: independent rerun preserves all input and numerical output checksums.
 PASS: all 12 slider years match raw data for all 5 continents.
 PASS: all 5 country trajectories match raw data; 5 dropdown choices present.
 PASS: summaries, input/result checksums, standalone scripts and article placeholders.
