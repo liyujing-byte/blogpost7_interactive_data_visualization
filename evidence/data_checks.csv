@@ -1,0 +1,10 @@
+"check","passed"
+"expected_rows",TRUE
+"expected_countries",TRUE
+"expected_years",TRUE
+"no_missing_values",TRUE
+"unique_country_year",TRUE
+"positive_gdp",TRUE
+"positive_population",TRUE
+"valid_life_expectancy",TRUE
+"balanced_panel",TRUE

@@ -1,0 +1,6 @@
+"file","md5"
+"data/raw/gapminder.csv","f8b1e561853918d111a6786dc44efa26"
+"data/processed/analysis_data.csv","41c78168da04bbb3aa01190af074cd8a"
+"results/year_summary.csv","8dbf23b5f11936f54c59689c867d66e6"
+"results/country_cases.csv","a7a4d6866b9187e01b9e6eb6b9a48dae"
+"results/article_claims.csv","bfbf07ebe7cdda6e6f57de5c7fbdf5ac"
