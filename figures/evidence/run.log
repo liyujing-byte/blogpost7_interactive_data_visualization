@@ -1,5 +1,7 @@
 During startup - Warning message:
 Setting LC_CTYPE failed, using "C" 
+null device 
+          1 
 PASS: 9 data checks; HTML figures, article, tables and evidence generated.
 PASS: all 12 slider years match raw data for all 5 continents.
 PASS: all 5 country trajectories match raw data; 5 dropdown choices present.

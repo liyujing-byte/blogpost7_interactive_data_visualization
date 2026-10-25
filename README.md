@@ -11,13 +11,7 @@ The main figure includes a year slider, continent legend filters and country hov
 ```text
 blogpost7_interactive_data_visualization/
 ├── code/
-│   ├── run.R
-│   ├── analysis.R
-│   ├── install_packages.R
-│   ├── export_source_data.R
-│   ├── validate_outputs.R
-│   ├── write_post.R
-│   └── template.md
+│   └── blogpost7_all_process.R
 ├── data/
 │   ├── raw/
 │   ├── processed/
@@ -34,7 +28,7 @@ blogpost7_interactive_data_visualization/
 └── blogpost7_interactive_data_visualization.Rproj
 ```
 
-- **code/**: complete analysis, installation and validation scripts, plus the editable article template.
+- **code/**: one complete R script for package setup, input checks, analysis, figures, article generation and output validation.
 - **data/raw/**: original input CSV, source documentation and source package version.
 - **data/processed/**: complete analysis table with log10 GDP per capita.
 - **data/results/**: computed summaries, country cases, article claim values and R environment information.
@@ -47,14 +41,12 @@ blogpost7_interactive_data_visualization/
 Open `blogpost7_interactive_data_visualization.Rproj` in RStudio. From the repository root, run:
 
 ```r
-source("code/install_packages.R") # once; requires CRAN access
-source("code/run.R")              # uses the bundled CSV
-source("code/validate_outputs.R") # checks all slider years and country cases
+source("code/blogpost7_all_process.R")
 ```
 
-Or run the same files with `Rscript` from the repository root. R 4.5 or a compatible version is recommended. Exact versions are recorded in `data/results/sessionInfo.txt` and `data/results/package_versions.csv`. Self-contained HTML export needs Pandoc, which RStudio normally bundles; outside RStudio, put Pandoc on PATH or configure `RSTUDIO_PANDOC`.
+Or run `Rscript code/blogpost7_all_process.R` from the repository root. Missing packages are installed automatically on the first run (CRAN access required). R 4.5 or a compatible version is recommended. Exact versions are recorded in `data/results/sessionInfo.txt` and `data/results/package_versions.csv`. Self-contained HTML export needs Pandoc, which RStudio normally bundles; outside RStudio, put Pandoc on PATH or configure `RSTUDIO_PANDOC`.
 
-The analysis checks nine input conditions, generates all numerical results and figures, and inserts computed values into the article. It requires no API key or data download. To change the article, edit `code/template.md` and rerun the analysis. The optional `code/export_source_data.R` refreshes the CSV from the installed gapminder package; ordinary replication uses the committed snapshot.
+The analysis checks nine input conditions, generates all numerical results and figures, and inserts computed values into the article. It requires no API key or data download. To change the article, edit its prose in section 6 of `code/blogpost7_all_process.R` and rerun the script. Set `refresh_data <- TRUE` only to refresh the CSV from the installed gapminder package; ordinary replication uses the committed snapshot.
 
 Open [the article page](figures/index.html), [the main interactive figure](figures/interactive_plot.html), or [the country trajectories](figures/country_trajectories.html) in a browser after downloading the repository. JavaScript is included in each figure, so no CDN or running R session is required. GitHub's file preview does not execute the interactive HTML.
 

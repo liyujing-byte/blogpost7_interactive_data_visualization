@@ -9,7 +9,7 @@ Evidence supports review; it does not promise a grade. Screenshots are supplemen
 | 3. Interpretation and takeaway | Three empirical patterns and article conclusion |
 | 4. Data and presentation | `data/raw/SOURCES.md`, labeled figures and hover units |
 | 5. Repository organization | Folder structure and README replication instructions |
-| 6. Reproducible coding | `code/run.R`; computed CSVs; numerical placeholders inserted by code; checksums and session info |
+| 6. Reproducible coding | `code/blogpost7_all_process.R`; computed CSVs; numerical placeholders inserted by code; checksums and session info |
 | 7. Plotly addressing a substantive question | `figures/interactive_plot.html` and `figures/country_trajectories.html` |
 | 8. Correct, usable interaction | Browser validation record and original interaction screenshots |
 | 9. Value beyond a static graph | Year changes, named country identification, continent filters, full selected-country trajectories |
